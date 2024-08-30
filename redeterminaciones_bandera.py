@@ -151,134 +151,147 @@ dif_favor_letras = num2words.num2words(saldos[4], lang="es")
 print("DATOS")
 print(datos)
 
-# INFORME Y ACTA ACUERDO AREAS GENERAL
-
-pregunta = input("EL INFORME ES DE VIALIDAD? (S/N)")
-
-flag = False
-
-if pregunta == "S":
-      flag = True
+while True:
       
-if flag == False:
-      
-      documento = DocxTemplate("maa995template.docx")
-      for dato in datos:
-            documento.render({"empresa":dato[0],
-                        "obra":dato[1],
-                        "licitacion":dato[2],
-                        "fecha_contr":dato[3],
-                        "rulo":rulo,
-                        "expediente":dato[4],
-                        "clausula1":clausula1,
-                        "mes_min": fecha_min,
-                        "mes_max":fecha_max,
-                        "num_cert_min":num_cert_min,
-                        "num_cert_max":num_cert_max,
-                        "suma_dispos":moneda(saldos[0]),
-                        "recon_contra":moneda(saldos[3]),
-                        "dif_favor":moneda(saldos[4]),
-                        "suma_dispos_letras":suma_dispos_letras,
-                        "recon_contra_letras":recon_contra_letras,
-                        "dif_favor_letras":dif_favor_letras,
-                        "localidad":dato[5]})
+      pregunta = input("Elija una opción:\n 1 - Doc. General \n 2 - Doc. de Vialidad \n 3 - Informe de recitificacion \n 4 - Salir \n")
 
-      documento.save("AA" + ".docx")
+      if pregunta == str(1):
             
-      # INFORME DEFINITIVAS 995 
+            documento = DocxTemplate("maa995template.docx")
+            for dato in datos:
+                  documento.render({"empresa":dato[0],
+                              "obra":dato[1],
+                              "licitacion":dato[2],
+                              "fecha_contr":dato[3],
+                              "rulo":rulo,
+                              "expediente":dato[4],
+                              "clausula1":clausula1,
+                              "mes_min": fecha_min,
+                              "mes_max":fecha_max,
+                              "num_cert_min":num_cert_min,
+                              "num_cert_max":num_cert_max,
+                              "suma_dispos":moneda(saldos[0]),
+                              "recon_contra":moneda(saldos[3]),
+                              "dif_favor":moneda(saldos[4]),
+                              "suma_dispos_letras":suma_dispos_letras,
+                              "recon_contra_letras":recon_contra_letras,
+                              "dif_favor_letras":dif_favor_letras,
+                              "localidad":dato[5]})
 
-      documento = DocxTemplate("infdef995template.docx")
-      for dato in datos:
-            documento.render({"empresa":dato[0],
-                        "obra":dato[1],
-                        "licitacion":dato[2],
-                        "fecha_contr":dato[3],
-                        "rulo":rulo,
-                        "expediente":dato[4],
-                        "clausula1":clausula1,
-                        "mes_min": fecha_min,
-                        "mes_max":fecha_max,
-                        "num_cert_min":num_cert_min,
-                        "num_cert_max":num_cert_max,
-                        "suma_dispos":moneda(saldos[0]),
-                        "recon_contra":moneda(saldos[3]),
-                        "dif_favor":moneda(saldos[4]),
-                        "suma_dispos_letras":suma_dispos_letras,
-                        "recon_contra_letras":recon_contra_letras,
-                        "dif_favor_letras":dif_favor_letras,
-                        "localidad":dato[5]})
+            documento.save("AA" + ".docx")
 
-      documento.save("INF-DEF " +".docx")
+            # INFORME DEFINITIVAS 995 
 
-# VIALIDAD
+            documento = DocxTemplate("infdef995template.docx")
+            for dato in datos:
+                  documento.render({"empresa":dato[0],
+                              "obra":dato[1],
+                              "licitacion":dato[2],
+                              "fecha_contr":dato[3],
+                              "rulo":rulo,
+                              "expediente":dato[4],
+                              "clausula1":clausula1,
+                              "mes_min": fecha_min,
+                              "mes_max":fecha_max,
+                              "num_cert_min":num_cert_min,
+                              "num_cert_max":num_cert_max,
+                              "suma_dispos":moneda(saldos[0]),
+                              "recon_contra":moneda(saldos[3]),
+                              "dif_favor":moneda(saldos[4]),
+                              "suma_dispos_letras":suma_dispos_letras,
+                              "recon_contra_letras":recon_contra_letras,
+                              "dif_favor_letras":dif_favor_letras,
+                              "localidad":dato[5]})
 
-if flag == True:
-      
-      documento = DocxTemplate("maa995template_v.docx")
-      for dato in datos:
-            documento.render({"empresa":dato[0],
-                        "obra":dato[1],
-                        "licitacion":dato[2],
-                        "fecha_contr":dato[3],
-                        "rulo":rulo,
-                        "expediente":dato[4],
-                        "clausula1":clausula1,
-                        "mes_min": fecha_min,
-                        "mes_max":fecha_max,
-                        "num_cert_min":num_cert_min,
-                        "num_cert_max":num_cert_max,
-                        "suma_dispos":moneda(saldos[0]),
-                        "recon_contra":moneda(saldos[3]),
-                        "dif_favor":moneda(saldos[4]),
-                        "suma_dispos_letras":suma_dispos_letras,
-                        "recon_contra_letras":recon_contra_letras,
-                        "dif_favor_letras":dif_favor_letras})
+            documento.save("INF-DEF " +".docx")
 
-      documento.save("AA_V" + ".docx")
+            print("Se generaron los archivos de areas generales") 
+            break
 
-      documento = DocxTemplate("infdef995template_v.docx")
-      for dato in datos:
-            documento.render({"empresa":dato[0],
-                        "obra":dato[1],
-                        "licitacion":dato[2],
-                        "fecha_contr":dato[3],
-                        "rulo":rulo,
-                        "expediente":dato[4],
-                        "clausula1":clausula1,
-                        "mes_min": fecha_min,
-                        "mes_max":fecha_max,
-                        "num_cert_min":num_cert_min,
-                        "num_cert_max":num_cert_max,
-                        "suma_dispos":moneda(saldos[0]),
-                        "recon_contra":moneda(saldos[3]),
-                        "dif_favor":moneda(saldos[4]),
-                        "suma_dispos_letras":suma_dispos_letras,
-                        "recon_contra_letras":recon_contra_letras,
-                        "dif_favor_letras":dif_favor_letras})
+      # VIALIDAD
 
-      documento.save("INF-DEF_V " +".docx")
+      if pregunta == str(2):
+            
+            documento = DocxTemplate("maa995template_v.docx")
+            for dato in datos:
+                  documento.render({"empresa":dato[0],
+                              "obra":dato[1],
+                              "licitacion":dato[2],
+                              "fecha_contr":dato[3],
+                              "rulo":rulo,
+                              "expediente":dato[4],
+                              "clausula1":clausula1,
+                              "mes_min": fecha_min,
+                              "mes_max":fecha_max,
+                              "num_cert_min":num_cert_min,
+                              "num_cert_max":num_cert_max,
+                              "suma_dispos":moneda(saldos[0]),
+                              "recon_contra":moneda(saldos[3]),
+                              "dif_favor":moneda(saldos[4]),
+                              "suma_dispos_letras":suma_dispos_letras,
+                              "recon_contra_letras":recon_contra_letras,
+                              "dif_favor_letras":dif_favor_letras})
 
-# INFORME DE RECTIFICACION
+            documento.save("AA_V" + ".docx")
 
-documento = DocxTemplate("inf_rect.docx")
-for dato in datos:
-      documento.render({"empresa":dato[0],
-                      "obra":dato[1],
-                      "licitacion":dato[2],
-                      "fecha_contr":dato[3],
-                      "rulo":rulo,
-                      "expediente":dato[4],
-                      "clausula1":clausula1,
-                      "mes_min": fecha_min,
-                      "mes_max":fecha_max,
-                      "num_cert_min":num_cert_min,
-                      "num_cert_max":num_cert_max,
-                      "suma_dispos":moneda(saldos[0]),
-                      "recon_contra":moneda(saldos[3]),
-                      "dif_favor":moneda(saldos[4]),
-                      "suma_dispos_letras":suma_dispos_letras,
-                      "recon_contra_letras":recon_contra_letras,
-                      "dif_favor_letras":dif_favor_letras})
+            documento = DocxTemplate("infdef995template_v.docx")
+            for dato in datos:
+                  documento.render({"empresa":dato[0],
+                              "obra":dato[1],
+                              "licitacion":dato[2],
+                              "fecha_contr":dato[3],
+                              "rulo":rulo,
+                              "expediente":dato[4],
+                              "clausula1":clausula1,
+                              "mes_min": fecha_min,
+                              "mes_max":fecha_max,
+                              "num_cert_min":num_cert_min,
+                              "num_cert_max":num_cert_max,
+                              "suma_dispos":moneda(saldos[0]),
+                              "recon_contra":moneda(saldos[3]),
+                              "dif_favor":moneda(saldos[4]),
+                              "suma_dispos_letras":suma_dispos_letras,
+                              "recon_contra_letras":recon_contra_letras,
+                              "dif_favor_letras":dif_favor_letras})
 
-documento.save("INFORME DE RECTIFICACION" +".docx")
+            documento.save("INF-DEF_V " +".docx")
+
+            print("Se generaron los informes de vialdad")
+            break
+
+      # INFORME DE RECTIFICACION
+
+      if pregunta == "3":
+
+            documento = DocxTemplate("inf_rect.docx")
+            for dato in datos:
+                  documento.render({"empresa":dato[0],
+                              "obra":dato[1],
+                              "licitacion":dato[2],
+                              "fecha_contr":dato[3],
+                              "rulo":rulo,
+                              "expediente":dato[4],
+                              "clausula1":clausula1,
+                              "mes_min": fecha_min,
+                              "mes_max":fecha_max,
+                              "num_cert_min":num_cert_min,
+                              "num_cert_max":num_cert_max,
+                              "suma_dispos":moneda(saldos[0]),
+                              "recon_contra":moneda(saldos[3]),
+                              "dif_favor":moneda(saldos[4]),
+                              "suma_dispos_letras":suma_dispos_letras,
+                              "recon_contra_letras":recon_contra_letras,
+                              "dif_favor_letras":dif_favor_letras})
+
+            documento.save("INFORME DE RECTIFICACION" +".docx")
+
+            print("Se generó el archibo de informes de rectificación")
+            break
+
+      if pregunta == "4":
+            print("Gracias por usar GOYO-SOFT")
+            break
+      else: 
+            print("ingrese una opcion valida")
+            continue
 
