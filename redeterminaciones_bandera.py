@@ -285,13 +285,13 @@ while True:
 
             documento.save("INFORME DE RECTIFICACION" +".docx")
 
-            print("Se generó el archibo de informes de rectificación")
+            print("Se generó el archivo de informes de rectificación")
             break
 
       if pregunta == "4":
-            print("Gracias por usar GOYO-SOFT")
+            print("\n *** Gracias por usar GOYO-SOFT *** \n")
             break
       else: 
-            print("ingrese una opcion valida")
+            print("*** Ingrese una opción válida *** \n")
             continue
 
