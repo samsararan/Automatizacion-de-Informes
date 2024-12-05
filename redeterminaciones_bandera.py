@@ -3,8 +3,12 @@ from docxtpl import DocxTemplate
 import docx
 import locale
 from datetime import datetime
-import num2words
+from num2words import num2words
       
+# Función para manejar errores en forma segura
+def manejar_error(mensaje, e):
+    print(f"Error: {mensaje}")
+    print(f"Detalle: {str(e)}")
 
 # Abrimos la planilla de excel
 
@@ -22,6 +26,14 @@ wb.active = pestaña1
 
 # Creamos la funcion que nos va a cambiar las fechas por numero de meses a meses en letras mas adelante
 
+def cambiar_mes(numero):
+    meses = ["enero", "febrero", "marzo", "abril", "mayo", "junio",
+             "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"]
+    try:
+        return meses[numero - 1]
+    except IndexError:
+        return "mes inválido"
+    
 def cambiar_mes(numero):
       if numero == 1:
             return "enero"
@@ -140,11 +152,38 @@ print(f" estos son los saldos {saldos}")
 
 # NUMEROS A LETRAS
 
-suma_dispos_letras =  num2words.num2words(saldos[0], lang="es")
+def numero_a_letras_con_centavos(numero, idioma='es'):
+    """
+    Convierte un número en palabras, incluyendo los centavos si es necesario.
+    
+    :param numero: Número con decimales.
+    :param idioma: Idioma para la conversión (por defecto 'es' - español).
+    :return: Representación en palabras del número, incluyendo los centavos.
+    """
+    try:
+        # Separar la parte entera y los centavos
+        parte_entera = int(numero)
+        centavos = round((numero - parte_entera) * 100)
+        
+        # Convertir la parte entera
+        palabras_parte_entera = num2words(parte_entera, lang=idioma)
+        
+        # Convertir los centavos, si existen
+        if centavos > 0:
+            palabras_centavos = num2words(centavos, lang=idioma)
+            resultado = f"{palabras_parte_entera} con {palabras_centavos} centavos"
+        else:
+            resultado = palabras_parte_entera
+        
+        return resultado
+    except Exception as e:
+        return f"Error al convertir: {e}"
 
-recon_contra_letras = num2words.num2words(saldos[3], lang="es")
+suma_dispos_letras =  numero_a_letras_con_centavos(saldos[0], idioma="es")
 
-dif_favor_letras = num2words.num2words(saldos[4], lang="es")
+recon_contra_letras = numero_a_letras_con_centavos(saldos[3], idioma="es")
+
+dif_favor_letras = numero_a_letras_con_centavos(saldos[4], idioma="es")
 
 
 
@@ -295,3 +334,4 @@ while True:
             print("*** Ingrese una opción válida *** \n")
             continue
 
+input("Presiona Enter para salir...")
