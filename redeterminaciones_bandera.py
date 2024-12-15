@@ -72,9 +72,12 @@ print(lista)
 
 rulo = "" 
 
+# for sub_lista in lista:
+#     # for dato in sub_lista:
+#     rulo += f" - En el mes de {cambiar_mes((sub_lista[1]).month)} {sub_lista[1].year} (certificado N° {sub_lista[0]}) un factor de redeterminación definitivo de {str(sub_lista[9]).replace('.' , ',')} (resultante del 100% de la variación de referencia)\n"
+
 for sub_lista in lista:
-    # for dato in sub_lista:
-    rulo += f" - En el mes de {cambiar_mes((sub_lista[1]).month)} {sub_lista[1].year} (certificado N° {sub_lista[0]}) un factor de redeterminación definitivo de {str(sub_lista[9]).replace('.' , ',')} (resultante del 100% de la variación de referencia)\n"
+    rulo += f" - En el mes de {cambiar_mes((sub_lista[1]).month)} {sub_lista[1].year} (certificado N° {sub_lista[0]}) un factor de redeterminación definitivo de {sub_lista[9]:.4f} (resultante del 100% de la variación de referencia)\n"
 
 punto_5 = ""
 
@@ -83,15 +86,38 @@ punto_5 = ""
 
 clausula1 = ""
 
+# def moneda(numero):
+#     mon = "${:,.2f}".format(numero).replace(",",";").replace(".",",").replace(";",".")
+#     return mon
+
+# for sub_lista in lista:
+#       clausula1 += f"   - En el mes de {cambiar_mes((sub_lista[1]).month)} {sub_lista[1].year} (certificado N° {sub_lista[0]}) un factor de redeterminación definitivo {str(sub_lista[9]).replace('.' , ',')} (resultante del 100% de la variación de referencia), que comparado con el Factor de Redeterminación Provisorio calculado por el área comitente de {str(sub_lista[3]).replace('.',',')} y {str(sub_lista[4]).replace('.',',')} (resultante del 95% de la variación de referencia), da una diferencia a reconocer de {moneda(sub_lista[12])}.\n"
+
+# print(f" ****CLAUSULA**** \n{clausula1}")
+
+# def moneda(numero):
+#     mon = "{:,.4f}".format(numero).replace(",", ";").replace(".", ",").replace(";", ".")
+#     return mon
+
+# for sub_lista in lista:
+#     clausula1 += f"   - En el mes de {cambiar_mes((sub_lista[1]).month)} {sub_lista[1].year} (certificado N° {sub_lista[0]}) un factor de redeterminación definitivo {str(sub_lista[9]:.4f).replace('.', ',')} (resultante del 100% de la variación de referencia), que comparado con el Factor de Redeterminación Provisorio calculado por el área comitente de {str(sub_lista[3]):.4f}.replace('.',',')} y {str(sub_lista[4]):.4f}.replace('.',',')} (resultante del 95% de la variación de referencia), da una diferencia a reconocer de {moneda(sub_lista[12])}.\n"
+
+# print(f" ****CLAUSULA**** \n{clausula1}")
+
 def moneda(numero):
-    mon = "${:,.2f}".format(numero).replace(",",";").replace(".",",").replace(";",".")
+    # Formateamos el número a 4 decimales y luego lo transformamos en formato de moneda
+    mon = "{:,.4f}".format(numero).replace(",", ";").replace(".", ",").replace(";", ".")
     return mon
 
 for sub_lista in lista:
-      clausula1 += f"   - En el mes de {cambiar_mes((sub_lista[1]).month)} {sub_lista[1].year} (certificado N° {sub_lista[0]}) un factor de redeterminación definitivo {str(sub_lista[9]).replace('.' , ',')} (resultante del 100% de la variación de referencia), que comparado con el Factor de Redeterminación Provisorio calculado por el área comitente de {str(sub_lista[3]).replace('.',',')} y {str(sub_lista[4]).replace('.',',')} (resultante del 95% de la variación de referencia), da una diferencia a reconocer de {moneda(sub_lista[12])}.\n"
+    # Formateamos el número con 4 decimales antes de insertar en la cadena
+    factor_redeterminacion = f"{float(sub_lista[9]):.4f}".replace('.', ',')
+    factor_redeterminacion_provisorio_1 = f"{float(sub_lista[3]):.4f}".replace('.', ',')
+    factor_redeterminacion_provisorio_2 = f"{float(sub_lista[4]):.4f}".replace('.', ',')
+    
+    clausula1 += f"   - En el mes de {cambiar_mes((sub_lista[1]).month)} {sub_lista[1].year} (certificado N° {sub_lista[0]}) un factor de redeterminación definitivo {factor_redeterminacion} (resultante del 100% de la variación de referencia), que comparado con el Factor de Redeterminación Provisorio calculado por el área comitente de {factor_redeterminacion_provisorio_1} y {factor_redeterminacion_provisorio_2} (resultante del 95% de la variación de referencia), da una diferencia a reconocer de {moneda(sub_lista[12])}.\n"
 
 print(f" ****CLAUSULA**** \n{clausula1}")
-
 print("+++LISTA+++ ")
 print(lista)
 
@@ -184,7 +210,6 @@ suma_dispos_letras =  numero_a_letras_con_centavos(saldos[0], idioma="es")
 recon_contra_letras = numero_a_letras_con_centavos(saldos[3], idioma="es")
 
 dif_favor_letras = numero_a_letras_con_centavos(saldos[4], idioma="es")
-
 
 
 print("DATOS")
